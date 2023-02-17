@@ -1,5 +1,7 @@
 import Config
 
+Envar.load(".env")
+
 # config/runtime.exs is executed for all environments, including
 # during releases. It is executed after compilation and before the
 # system starts, so it is typically used to load production configuration
@@ -63,3 +65,9 @@ if config_env() == :prod do
     ],
     secret_key_base: secret_key_base
 end
+
+guardian_secret_key = System.get_env("GUARDIAN_SECRET_KEY")
+
+config :phoenix_api_template, PhoenixApiTemplateWeb.Auth.Guardian,
+  issuer: "phoenix_api_template",
+  secret_key: guardian_secret_key
