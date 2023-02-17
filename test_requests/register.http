@@ -1,0 +1,10 @@
+POST http://localhost:4000/api/users HTTP/1.1
+content-type: application/json
+
+{ 
+  "quotation": {
+
+    "author": "Dennis Ritchie",
+    "text": "The only way to learn a new programming language is by writing programs in it"
+  }
+}
