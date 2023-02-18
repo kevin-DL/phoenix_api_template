@@ -28,6 +28,11 @@ config :phoenix_api_template, PhoenixApiTemplateWeb.Auth.Guardian,
   issuer: "phoenix_api_template",
   secret_key: ""
 
+config :guardian, Guardian.DB,
+  repo: PhoenixApiTemplate.Repo,
+  schema_name: "guardian_tokens",
+  sweep_interval: 60
+
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 

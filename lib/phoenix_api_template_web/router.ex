@@ -45,5 +45,7 @@ defmodule PhoenixApiTemplateWeb.Router do
 
     get "/users/by_id/:id", UserController, :show
     put "/users/:id", UserController, :update
+    get "/user/refresh_session", UserController, :refresh_session
+    get "/sign_out", UserController, :sign_out
   end
 end
