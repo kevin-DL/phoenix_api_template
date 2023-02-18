@@ -18,11 +18,21 @@ defmodule PhoenixApiTemplateWeb.Router do
     plug(:accepts, ["json"])
   end
 
+  pipeline :auth do
+    plug PhoenixApiTemplateWeb.Auth.Pipeline
+  end
+
   scope "/api", PhoenixApiTemplateWeb do
     pipe_through(:api)
 
     get("/", DefaultController, :index)
     post("/register", UserController, :create)
     post("/login", UserController, :sign_in)
+  end
+
+  scope "/api", PhoenixApiTemplateWeb do
+    pipe_through([:api, :auth])
+
+    get "/users/by_id/:id", UserController, :show
   end
 end
