@@ -4,7 +4,7 @@ content-type: application/json
 { 
   "user": {
 
-    "email": "test4@yopmail.com",
+    "email": "test5@yopmail.com",
     "hashed_password": "yolo",
     "profile":  {
       "display_name": "test user"
