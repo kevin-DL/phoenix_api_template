@@ -4,6 +4,6 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJwaG9lbml4X
 
 {
     "user": {
-        "password": "safe"
+        "hashed_password": "safe"
     }
 }

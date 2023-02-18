@@ -3,6 +3,6 @@ content-type: application/json
 
 { 
     "email": "test4@yopmail.com",
-    "password": "yolo"
+    "password": "safe"
 }
  
