@@ -9,5 +9,6 @@ defmodule PhoenixApiTemplateWeb.Router do
     pipe_through(:api)
 
     get("/", DefaultController, :index)
+    post("/register", UserController, :create)
   end
 end

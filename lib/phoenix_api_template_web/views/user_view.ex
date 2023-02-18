@@ -17,4 +17,12 @@ defmodule PhoenixApiTemplateWeb.UserView do
       hashed_password: user.hashed_password
     }
   end
+
+  def render("user_token.json", %{user: user, token: token}) do
+    %{
+      id: user.id,
+      email: user.email,
+      token: token
+    }
+  end
 end

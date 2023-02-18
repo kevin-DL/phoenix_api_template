@@ -1,8 +1,11 @@
 defmodule PhoenixApiTemplateWeb.UserController do
   use PhoenixApiTemplateWeb, :controller
 
+  alias PhoenixApiTemplateWeb.Auth.Guardian
   alias PhoenixApiTemplate.Accounts
   alias PhoenixApiTemplate.Accounts.User
+  alias PhoenixApiTemplate.Profiles
+  alias PhoenixApiTemplate.Profiles.Profile
 
   action_fallback(PhoenixApiTemplateWeb.FallbackController)
 
@@ -11,11 +14,13 @@ defmodule PhoenixApiTemplateWeb.UserController do
     render(conn, "index.json", users: users)
   end
 
-  def create(conn, %{"user" => user_params}) do
-    with {:ok, %User{} = user} <- Accounts.create_user(user_params) do
+  def create(conn, %{"user" => %{"profile" => profile_params} = user_params}) do
+    with {:ok, %User{} = user} <- Accounts.create_user(user_params),
+         {:ok, token, _claims} <- Guardian.encode_and_sign(user),
+         {:ok, %Profile{} = _profile} <- Profiles.create_profile(user, profile_params) do
       conn
       |> put_status(:created)
-      |> render("show.json", user: user)
+      |> render("user_token.json", user: user, token: token)
     end
   end
 
