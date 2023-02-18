@@ -2,15 +2,23 @@ defmodule PhoenixApiTemplateWeb.Router do
   use PhoenixApiTemplateWeb, :router
   use Plug.ErrorHandler
 
-  defp handle_errors(conn, %{reason: %Phoenix.Router.NoRouteError{message: message}}) do
+  def handle_errors(conn, %{reason: %Phoenix.Router.NoRouteError{message: message}}) do
     conn
     |> json(%{errors: message})
     |> halt()
   end
 
-  defp handle_errors(conn, %{reason: %{message: message}}) do
+  def handle_errors(conn, %{reason: %{message: message}}) do
     conn
     |> json(%{errors: message})
+    |> halt()
+  end
+
+  def handle_errors(conn, error) do
+    IO.inspect(error)
+
+    conn
+    |> json(%{errors: "unknown error"})
     |> halt()
   end
 
@@ -36,5 +44,6 @@ defmodule PhoenixApiTemplateWeb.Router do
     pipe_through([:api, :auth])
 
     get "/users/by_id/:id", UserController, :show
+    put "/users/:id", UserController, :update
   end
 end
