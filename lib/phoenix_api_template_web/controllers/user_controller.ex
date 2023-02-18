@@ -29,6 +29,7 @@ defmodule PhoenixApiTemplateWeb.UserController do
     case Guardian.authenticate(email, password) do
       {:ok, user, token} ->
         conn
+        |> Plug.Conn.put_session(:user_id, user.id)
         |> put_status(:ok)
         |> render("user_token.json", %{user: user, token: token})
 

@@ -16,10 +16,12 @@ defmodule PhoenixApiTemplateWeb.Router do
 
   pipeline :api do
     plug(:accepts, ["json"])
+    plug :fetch_session
   end
 
   pipeline :auth do
     plug PhoenixApiTemplateWeb.Auth.Pipeline
+    plug PhoenixApiTemplateWeb.Auth.SetUser
   end
 
   scope "/api", PhoenixApiTemplateWeb do
